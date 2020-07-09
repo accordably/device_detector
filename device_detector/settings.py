@@ -71,7 +71,11 @@ class Cache(dict):
         self.update(deepcopy(self.base))
 
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+try:
+    import sys
+    ROOT = os.path.join(sys._MEIPASS, "device_detector")
+except AttributeError:
+    ROOT = os.path.dirname(os.path.abspath(__file__))
 
 DDCache = Cache()
 
