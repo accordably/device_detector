@@ -1,4 +1,4 @@
-from hashlib import blake2s
+import mmh3
 from string import punctuation
 from urllib.parse import unquote
 from .lazy_regex import RegexLazy, RegexLazyIgnore
@@ -19,7 +19,8 @@ def ua_hash(user_agent):
     Return short hash of User Agent string for
     memory-efficient cache key.
     """
-    return blake2s(user_agent.encode('utf-8')).hexdigest()[:9]
+    _, hash = mmh3.hash64(user_agent)
+    return hash
 
 
 def long_ua_no_punctuation(user_agent):
